@@ -3,6 +3,15 @@ let filterApplicantsByPriorityAttribute = (applicants, attribute) => {
     return applicant.attributes.includes(attribute);
   });
 }
+
+let filterApplicantsByAllAttributes = (applicants, attributes) => {
+  return applicants.filter((applicant) => {
+    return attributes.every((attribute) => {
+      return applicant.attributes.includes(attribute);
+    });
+  });
+}
+
 let filterApplicantsByAttributes = (applicants, attributesToFilterBy) => {
   const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
   const FRESH_GRAD = 'FRESH_GRAD';
@@ -16,11 +25,7 @@ let filterApplicantsByAttributes = (applicants, attributesToFilterBy) => {
     return filterApplicantsByPriorityAttribute(applicants, FRESH_GRAD);
   }
   else {
-    return applicants.filter((applicant) => {
-      return attributesToFilterBy.every((attribute) => {
-        return applicant.attributes.includes(attribute);
-      });
-    });
+    return filterApplicantsByAllAttributes(applicants, attributesToFilterBy);
   }
 }
 
