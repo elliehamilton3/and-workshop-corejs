@@ -1,8 +1,8 @@
 const data = require('./12_exercise.data.json');
-const filterApplicants = require('./12_exercise');
+const filterApplicantsByAttributes = require('./12_exercise');
 
 it('should return only AVAILABLE_IMMEDIATELY candidates with [AVAILABLE_IMMEDIATELY]', () => {
-  const candidates = filterApplicants(data, ['AVAILABLE_IMMEDIATELY']);
+  const candidates = filterApplicantsByAttributes(data, ['AVAILABLE_IMMEDIATELY']);
 
   expect(candidates.length).toBe(3);
   expect(candidates[0].name).toBe('Julian Assange');
@@ -11,7 +11,7 @@ it('should return only AVAILABLE_IMMEDIATELY candidates with [AVAILABLE_IMMEDIAT
 });
 
 it('should return only AVAILABLE_IMMEDIATELY candidates with [AVAILABLE_IMMEDIATELY, FRESH_GRADS]', () => {
-  const candidates = filterApplicants(data, ['AVAILABLE_IMMEDIATELY', 'FRESH_GRAD']);
+  const candidates = filterApplicantsByAttributes(data, ['AVAILABLE_IMMEDIATELY', 'FRESH_GRAD']);
 
   expect(candidates.length).toBe(3);
   expect(candidates[0].name).toBe('Julian Assange');
@@ -20,7 +20,7 @@ it('should return only AVAILABLE_IMMEDIATELY candidates with [AVAILABLE_IMMEDIAT
 });
 
 it('should return only AVAILABLE_IMMEDIATELY candidates with [AVAILABLE_IMMEDIATELY, FRESH_GRADS, JUNIOR]', () => {
-  const candidates = filterApplicants(data, [
+  const candidates = filterApplicantsByAttributes(data, [
     'AVAILABLE_IMMEDIATELY',
     'FRESH_GRAD',
     'JUNIOR'
@@ -33,7 +33,7 @@ it('should return only AVAILABLE_IMMEDIATELY candidates with [AVAILABLE_IMMEDIAT
 });
 
 it('should return only FRESH_GRAD candidates with [FRESH_GRADS, JUNIOR]', () => {
-  const candidates = filterApplicants(data, ['FRESH_GRAD', 'JUNIOR']);
+  const candidates = filterApplicantsByAttributes(data, ['FRESH_GRAD', 'JUNIOR']);
 
   expect(candidates.length).toBe(4);
   expect(candidates[0].name).toBe('Julian Assange');
@@ -43,7 +43,7 @@ it('should return only FRESH_GRAD candidates with [FRESH_GRADS, JUNIOR]', () => 
 });
 
 it('should return 2 JUNIOR candidates with [JUNIOR]', () => {
-  const candidates = filterApplicants(data, ['JUNIOR']);
+  const candidates = filterApplicantsByAttributes(data, ['JUNIOR']);
 
   expect(candidates.length).toBe(2);
   expect(candidates[0].name).toBe('Julian Assange');
@@ -51,14 +51,14 @@ it('should return 2 JUNIOR candidates with [JUNIOR]', () => {
 });
 
 it('should return 1 candidate with [JUNIOR, PHP]', () => {
-  const candidates = filterApplicants(data, ['JUNIOR', 'PHP']);
+  const candidates = filterApplicantsByAttributes(data, ['JUNIOR', 'PHP']);
 
   expect(candidates.length).toBe(1);
   expect(candidates[0].name).toBe('Marc Brown');
 });
 
 it('should return 5 candidate with [JAVASCRIPT]', () => {
-  const candidates = filterApplicants(data, ['JAVASCRIPT']);
+  const candidates = filterApplicantsByAttributes(data, ['JAVASCRIPT']);
 
   expect(candidates.length).toBe(5);
   expect(candidates[0].name).toBe('Julian Assange');

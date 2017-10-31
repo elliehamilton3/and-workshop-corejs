@@ -16,35 +16,37 @@
  *   happy refactory :)
  */
 
-function isInListOfFilters(listOfFilters, filter) {
-  return listOfFilters.indexOf(filter) !== -1
+function isInList(list, item) {
+  return list.indexOf(item) !== -1
 }
 
-function filterApplicants(applicants, filters) {
+function 
+
+function filterApplicantsByAttributes(applicants, attributesToFilterBy) {
   let filteredApplicants = [];
+  const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
+  const FRESH_GRAD = 'FRESH_GRAD';
 
-  if (!filters.length) return applicants;
+  if (!attributesToFilterBy.length) return applicants;
 
-  if (isInListOfFilters(filters, 'AVAILABLE_IMMEDIATELY')) {
+  if (isInList(attributesToFilterBy, AVAILABLE_IMMEDIATELY)) {
     filteredApplicants = applicants.filter(function(applicant) {
-      return isInListOfFilters(applicant.attributes, 'AVAILABLE_IMMEDIATELY');
+      return isInList(applicant.attributes, AVAILABLE_IMMEDIATELY);
     });
   } 
-  else if (isInListOfFilters(filters, 'FRESH_GRAD')) {
+  else if (isInList(attributesToFilterBy, FRESH_GRAD)) {
     filteredApplicants = applicants.filter(function(applicant) {
-      return isInListOfFilters(applicant.attributes, 'FRESH_GRAD');
+      return isInList(applicant.attributes, FRESH_GRAD);
     });
   }
   else {
     filteredApplicants = applicants.filter(function(applicant){
-      let list = filters.filter(function(filter){
-        return isInListOfFilters(applicant.attributes, filter);
+      return attributesToFilterBy.every(function(attribute){
+        return isInList(applicant.attributes, attribute);
       });
-      if (list.length !== filters.length) return false;
-      return true;
     });
   }
   return filteredApplicants;
 }
 
-module.exports = filterApplicants;
+module.exports = filterApplicantsByAttributes;
