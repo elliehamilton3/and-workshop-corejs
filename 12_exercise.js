@@ -21,51 +21,53 @@ function isInListOfFilters(listOfFilters, filter) {
 }
 
 function filterApplicants(applicants, filters) {
-  var filterApplicants = [];
+  var filteredApplicants = [];
   var applicantsLength = applicants.length;
   var filterLength = filters.length;
   var hasAttributes;
-  var availableImmediately = false;
-  var freshGrad = false;
 
   if (!filters.length) return applicants;
 
-
   if (isInListOfFilters(filters, 'AVAILABLE_IMMEDIATELY')) {
-    availableImmediately = true;
+    filteredApplicants = applicants.filter(function(applicant) {
+      return isInListOfFilters(applicant.attributes, 'AVAILABLE_IMMEDIATELY');
+    });
   } 
   else if (isInListOfFilters(filters, 'FRESH_GRAD')) {
-    freshGrad = true;
+    filteredApplicants = applicants.filter(function(applicant) {
+      return isInListOfFilters(applicant.attributes, 'FRESH_GRAD');
+    });
   }
 
-  for (var i = applicantsLength; i--; ) {
-    hasAttributes = applicants[i].attributes && applicants[i].attributes.length > 0;
+  // for (var i = applicantsLength; i--; ) {
+  //   hasAttributes = applicants[i].attributes && applicants[i].attributes.length > 0;
 
-    if (applicants[i].attributes) {
-      for (var k = filterLength; k--; ) {
-        var hasFilter = false;
-        for (var j = applicants[i].attributes.length; j--; ) {
-          if (!availableImmediately && !freshGrad) {
-            if (filters[k].indexOf(applicants[i].attributes[j]) !== -1) {
-              hasFilter = true;
-            }
-          } else if (
-            availableImmediately &&
-            applicants[i].attributes[j] === 'AVAILABLE_IMMEDIATELY'
-          ) {
-            hasFilter = true;
-          } else if (freshGrad && applicants[i].attributes[j] === 'FRESH_GRAD') {
-            hasFilter = true;
-          }
-        }
-        hasAttributes = hasAttributes && hasFilter;
-      }
-    }
-    if (hasAttributes) {
-      filterApplicants.unshift(applicants[i]);
-    }
-  }
-  return filterApplicants;
+  //   if (hasAttributes) {
+  //     for (var k = filterLength; k--; ) {
+  //       var hasFilter = false;
+  //       for (var j = applicants[i].attributes.length; j--; ) {
+  //         if (!availableImmediately && !freshGrad) {
+  //           // if (filters[k].indexOf(applicants[i].attributes[j]) !== -1) {
+  //           if(isInListOfFilters(applicants[i].attributes, filters[k])){
+  //             hasFilter = true;
+  //           }
+  //         } else if (
+  //           availableImmediately &&
+  //           applicants[i].attributes[j] === 'AVAILABLE_IMMEDIATELY'
+  //         ) {
+  //           hasFilter = true;
+  //         } else if (freshGrad && applicants[i].attributes[j] === 'FRESH_GRAD') {
+  //           hasFilter = true;
+  //         }
+  //       }
+  //       hasAttributes = hasAttributes && hasFilter;
+  //     }
+  //   }
+  //   if (hasAttributes) {
+  //     filterApplicants.unshift(applicants[i]);
+  //   }
+  // }
+  return filteredApplicants;
 }
 
 module.exports = filterApplicants;
