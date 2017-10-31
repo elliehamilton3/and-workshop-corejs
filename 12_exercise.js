@@ -16,48 +16,52 @@
  *   happy refactory :)
  */
 
+function isInListOfFilters(listOfFilters, filter) {
+  return listOfFilters.indexOf(filter) !== -1
+}
+
 function filterApplicants(applicants, filters) {
   var filterApplicants = [];
   var applicantsLength = applicants.length;
   var filterLength = filters.length;
-  var hasOptions;
+  var hasAttributes;
   var availableImmediately = false;
   var freshGrad = false;
 
   if (!filters.length) return applicants;
 
 
-  if (filters.indexOf('AVAILABLE_IMMEDIATELY') !== -1) {
+  if (isInListOfFilters(filters, 'AVAILABLE_IMMEDIATELY')) {
     availableImmediately = true;
-  } else if (filters.indexOf('FRESH_GRAD') !== -1) {
+  } 
+  else if (isInListOfFilters(filters, 'FRESH_GRAD')) {
     freshGrad = true;
   }
 
   for (var i = applicantsLength; i--; ) {
-    hasOptions = applicants[i].options && applicants[i].options.length > 0; //has.options
+    hasAttributes = applicants[i].attributes && applicants[i].attributes.length > 0;
 
-    if (applicants[i].options) {
+    if (applicants[i].attributes) {
       for (var k = filterLength; k--; ) {
-        // loop through filters
         var hasFilter = false;
-        for (var j = applicants[i].options.length; j--; ) {
+        for (var j = applicants[i].attributes.length; j--; ) {
           if (!availableImmediately && !freshGrad) {
-            if (filters[k].indexOf(applicants[i].options[j]) !== -1) {
+            if (filters[k].indexOf(applicants[i].attributes[j]) !== -1) {
               hasFilter = true;
             }
           } else if (
             availableImmediately &&
-            applicants[i].options[j] === 'AVAILABLE_IMMEDIATELY'
+            applicants[i].attributes[j] === 'AVAILABLE_IMMEDIATELY'
           ) {
             hasFilter = true;
-          } else if (freshGrad && applicants[i].options[j] === 'FRESH_GRAD') {
+          } else if (freshGrad && applicants[i].attributes[j] === 'FRESH_GRAD') {
             hasFilter = true;
           }
         }
-        hasOptions = hasOptions && hasFilter;
+        hasAttributes = hasAttributes && hasFilter;
       }
     }
-    if (hasOptions) {
+    if (hasAttributes) {
       filterApplicants.unshift(applicants[i]);
     }
   }
