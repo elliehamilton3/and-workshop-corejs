@@ -38,6 +38,15 @@ function filterApplicants(applicants, filters) {
       return isInListOfFilters(applicant.attributes, 'FRESH_GRAD');
     });
   }
+  else {
+    filteredApplicants = applicants.filter(function(applicant){
+      for (var k = filterLength; k--; ) {
+        if (!isInListOfFilters(applicant.attributes, filters[k])) return false;
+      }
+      return true;
+    });
+  }
+
 
   // for (var i = applicantsLength; i--; ) {
   //   hasAttributes = applicants[i].attributes && applicants[i].attributes.length > 0;
