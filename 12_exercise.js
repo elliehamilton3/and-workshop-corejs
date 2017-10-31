@@ -16,13 +16,11 @@
  *   happy refactory :)
  */
 
-function isInList(list, item) {
+var isInList = (list, item) => {
   return list.indexOf(item) !== -1
 }
 
-function 
-
-function filterApplicantsByAttributes(applicants, attributesToFilterBy) {
+var filterApplicantsByAttributes = (applicants, attributesToFilterBy) => {
   let filteredApplicants = [];
   const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
   const FRESH_GRAD = 'FRESH_GRAD';
@@ -30,18 +28,18 @@ function filterApplicantsByAttributes(applicants, attributesToFilterBy) {
   if (!attributesToFilterBy.length) return applicants;
 
   if (isInList(attributesToFilterBy, AVAILABLE_IMMEDIATELY)) {
-    filteredApplicants = applicants.filter(function(applicant) {
+    filteredApplicants = applicants.filter((applicant) => {
       return isInList(applicant.attributes, AVAILABLE_IMMEDIATELY);
     });
   } 
   else if (isInList(attributesToFilterBy, FRESH_GRAD)) {
-    filteredApplicants = applicants.filter(function(applicant) {
+    filteredApplicants = applicants.filter((applicant) => {
       return isInList(applicant.attributes, FRESH_GRAD);
     });
   }
   else {
-    filteredApplicants = applicants.filter(function(applicant){
-      return attributesToFilterBy.every(function(attribute){
+    filteredApplicants = applicants.filter((applicant) => {
+      return attributesToFilterBy.every((attribute) => {
         return isInList(applicant.attributes, attribute);
       });
     });
