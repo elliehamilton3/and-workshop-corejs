@@ -16,35 +16,29 @@
  *   happy refactory :)
  */
 
-var isInList = (list, item) => {
-  return list.indexOf(item) !== -1
-}
-
 var filterApplicantsByAttributes = (applicants, attributesToFilterBy) => {
-  let filteredApplicants = [];
   const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
   const FRESH_GRAD = 'FRESH_GRAD';
 
   if (!attributesToFilterBy.length) return applicants;
 
-  if (isInList(attributesToFilterBy, AVAILABLE_IMMEDIATELY)) {
-    filteredApplicants = applicants.filter((applicant) => {
-      return isInList(applicant.attributes, AVAILABLE_IMMEDIATELY);
+  if (attributesToFilterBy.includes(AVAILABLE_IMMEDIATELY)) {
+    return filteredApplicants = applicants.filter((applicant) => {
+      return applicant.attributes.includes(AVAILABLE_IMMEDIATELY);
     });
   } 
-  else if (isInList(attributesToFilterBy, FRESH_GRAD)) {
-    filteredApplicants = applicants.filter((applicant) => {
-      return isInList(applicant.attributes, FRESH_GRAD);
+  else if (attributesToFilterBy.includes(FRESH_GRAD)) {
+    return filteredApplicants = applicants.filter((applicant) => {
+      return applicant.attributes.includes(FRESH_GRAD);
     });
   }
   else {
-    filteredApplicants = applicants.filter((applicant) => {
+    return filteredApplicants = applicants.filter((applicant) => {
       return attributesToFilterBy.every((attribute) => {
-        return isInList(applicant.attributes, attribute);
+        return applicant.attributes.includes(attribute);
       });
     });
   }
-  return filteredApplicants;
 }
 
 module.exports = filterApplicantsByAttributes;
