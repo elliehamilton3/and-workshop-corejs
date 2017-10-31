@@ -11,9 +11,9 @@ let filterApplicantsByAttributes = (applicants, attributesToFilterBy) => {
     if (attributesToFilterBy.includes(FRESH_GRAD)) {
       return applicant.attributes.includes(FRESH_GRAD);
     }
-    return attributesToFilterBy.every((attribute) => {
+    return attributesToFilterBy.every(attribute => {
       return applicant.attributes.includes(attribute);
-      });
+    });
   });
 }
 
